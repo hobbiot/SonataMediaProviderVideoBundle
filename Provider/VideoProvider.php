@@ -142,10 +142,10 @@ class VideoProvider extends FileProvider {
 
         /*
         // para recuperar las dimensiones de los vídeos codificados
-        // las calculo aquí para guardarlas en la tabla, en lugar de 
+        // las calculo aquí para guardarlas en la tabla, en lugar de
         // las dimensiones reales del vídeo original
         // estoy hay que eliminarlo en el momento en el que consiga pasar variables
-        // a las plantillas twig     
+        // a las plantillas twig
         $width = $this->configVideoWidth;
         $height = round($this->configVideoWidth * $heightOriginal / $widthOriginal);
          */
@@ -241,7 +241,7 @@ class VideoProvider extends FileProvider {
 
         // determino las dimensiones del vídeo
         $height = round($this->configVideoWidth * $media->getHeight() / $media->getWidth());
-        
+
         // corrección para que el alto no sea impar, si es impar PETA ffmpeg
         if($height % 2 != 0){
             $height = $height-1;
@@ -425,8 +425,8 @@ class VideoProvider extends FileProvider {
     }
 
     private function updateConfigFrameValue($media){
-        $uniqid = $this->container->get('request')->query->get('uniqid');
-        $formData = $this->container->get('request')->request->get($uniqid);
+        $uniqid = $this->container->get('request_stack')->getCurrentRequest()->query->get('uniqid');
+        $formData = $this->container->get('request_stack')->getCurrentRequest()->get($uniqid);
 
         if (!empty($formData['thumbnailCapture'])) {
             if ($formData['thumbnailCapture'] <= round($media->getLength())) {
@@ -503,7 +503,7 @@ class VideoProvider extends FileProvider {
      * {@inheritdoc}
      */
     public function preRemove(MediaInterface $media) {
-        
+
         // arreglo para eliminar la relación del video con la galería
         if ($galleryHasMedias = $media->getGalleryHasMedias()) {
             foreach ($galleryHasMedias as $galleryHasMedia) {
@@ -607,7 +607,7 @@ class VideoProvider extends FileProvider {
             $ext = "mp4";
         }
         return $ext;
-    } 
+    }
 
     ////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////
