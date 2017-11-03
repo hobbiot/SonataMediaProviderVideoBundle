@@ -18,7 +18,7 @@ use Sonata\MediaBundle\Provider\Pool;
 class GlobalsExtension extends \Twig_Extension {
 
     protected $mediaService;
-    
+
     public function getFilters()
     {
         return array(
@@ -29,7 +29,7 @@ class GlobalsExtension extends \Twig_Extension {
     }
 
     /**
-     * 
+     *
      * @param type $width
      * @param Pool $mediaService
      */
@@ -40,28 +40,29 @@ class GlobalsExtension extends \Twig_Extension {
 
     public function videoFormatMp4($media)
     {
+        $a = 2;
         $provider = $this
             ->getMediaService()
             ->getProvider($media->getProviderName());
-        
+
         return $provider->generatePublicUrl($media, "videos_mp4");
     }
-    
+
     public function videoFormatOgg($media)
     {
         $provider = $this
             ->getMediaService()
             ->getProvider($media->getProviderName());
-        
+
         return $provider->generatePublicUrl($media, "videos_ogg");
     }
-    
+
     public function videoFormatWebm($media)
     {
         $provider = $this
             ->getMediaService()
             ->getProvider($media->getProviderName());
-        
+
         return $provider->generatePublicUrl($media, "videos_webm");
     }
 
